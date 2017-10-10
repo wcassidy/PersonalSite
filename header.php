@@ -19,11 +19,11 @@
                     <h1>Wayne Cassidy BscH</h1>
                 </div>
                 <div class="col-6">
-                    <ul class="nav nav-pills nav-justified">
-                      <li class="nav-item active"><a href="#">Home</a></li>
-                      <li class="nav-item"><a href="#">Home</a></li>
-                      <li class="nav-item"><a href="#">Resume</a></li>
-                      <li class="nav-item"><a href="#">Contact</a></li>
+                    <ul class="nav nav-pills justify-content-end">
+                      <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#">Resume</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                     </ul>
                 </div>
             </div>

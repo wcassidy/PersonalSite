@@ -1,4 +1,9 @@
 /* Main stylesheet */
+$gunmetal-grey: #2C3531;
+$blue-sapphire: #116466;
+$tan: #D9B08C;
+$peach-orange: #FFCB9A;
+$platinum: #D1E8E2;
 
 body
 {
@@ -7,12 +12,12 @@ body
 
 .title_bar  
 {
-    background-color: #2C3531;
+    background-color: $gunmetal-grey;
     padding-left: 0px;
+    color: $tan;
     
     h1
     {
-        color: #D9B08C;
         vertical-align: middle;
     }
 }
@@ -22,7 +27,7 @@ body
     max-width: 70px;
     width: 100%;
     margin: 10px;
-    border: 2px solid #116466;
+    border: 2px solid $blue-sapphire;
     border-radius: 5px;
 }
 
