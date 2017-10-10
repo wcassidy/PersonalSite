@@ -1,0 +1,28 @@
+/* Main stylesheet */
+/* line 3, style.scss */
+body {
+  font-family: 'Rosario', 'sans-serif'; }
+
+/* line 8, style.scss */
+.title_bar {
+  background-color: #2C3531;
+  padding-left: 0px; }
+  /* line 13, style.scss */
+  .title_bar h1 {
+    color: #D9B08C;
+    vertical-align: middle; }
+
+/* line 20, style.scss */
+.title_image {
+  max-width: 70px;
+  width: 100%;
+  margin: 10px;
+  border: 2px solid #116466;
+  border-radius: 5px; }
+
+/* line 29, style.scss */
+.image_right {
+  text-align: right;
+  padding-right: 0px; }
+
+/*# sourceMappingURL=style.css.map */
