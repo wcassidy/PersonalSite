@@ -1,9 +1,2 @@
-applications.html
-bitnami.css
-dashboard/
-favicon.ico
-img/
-index.php.bak
-webalizer/
-xampp/
 node_modules/
+deploy.lnk*
