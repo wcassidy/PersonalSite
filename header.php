@@ -4,27 +4,17 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
-        <?php
-            require './styles.html';
-        ?>
+        <?php echo('<title>' . get_title() . '</title>'); ?>
+        <?php add_styles(); ?>
 	</head>
     <body>
-        <div class="container-fluid">
-            <div class="row align-items-center title_bar">
-                <div class="col-1 image_right">
-                    <img src="images/MeSmall.png" class="title_image">
-                </div>
-                <div class="col-5">
-                    <h1>Wayne Cassidy BscH</h1>
-                </div>
-                <div class="col-6">
-                    <ul class="nav nav-pills justify-content-end">
-                      <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                      <li class="nav-item"><a class="nav-link" href="#">Resume</a></li>
-                      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark title_bar">
+            <img class="title_image d-none d-sm-block" src="images/MeSmall.png">
+            <h1 class="navbar-brand title_text">Wayne Cassidy BscH</h1>
             
+            <button class="navbar-toggler toggler_override" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <?php add_menu(); ?> 
+        </nav>
+        <div class="code_image"></div>
