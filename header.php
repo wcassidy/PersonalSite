@@ -17,4 +17,4 @@
             </button>
             <?php add_menu(); ?> 
         </nav>
-        <div class="code_image"></div>
+        <div class="title_code_image"></div>

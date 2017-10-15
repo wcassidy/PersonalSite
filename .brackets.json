@@ -1,11 +1,38 @@
 {
     "sass.enabled": false,
-    "path": {
-        "style.scss": {
+    "path": 
+    {
+        "style.scss": 
+        {
             "sass.enabled": true,
 			"sass.compiler": "ruby",
-            "sass.options": {
-                "outputDir": ".",
+            "sass.options": 
+            {
+                "outputDir": "",
+                "includePaths": [],
+                "sourceComments": true,
+                "outputStyle": "nested"
+            }
+        },
+        "plugins/lightbox/lightbox.scss": 
+        {
+            "sass.enabled": true,
+			"sass.compiler": "ruby",
+            "sass.options": 
+            {
+                "outputDir": "",
+                "includePaths": [],
+                "sourceComments": true,
+                "outputStyle": "nested"
+            }
+        },
+        "plugins/code_browser/code_browser.scss": 
+        {
+            "sass.enabled": true,
+			"sass.compiler": "ruby",
+            "sass.options": 
+            {
+                "outputDir": "",
                 "includePaths": [],
                 "sourceComments": true,
                 "outputStyle": "nested"

@@ -1,60 +1,95 @@
 <?php
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);  // This enables proper exception handling for the mysql drivers
 
-function display_code($code_file)
+class code_browser
 {
+    private $host;
+    private $username;
+    private $password;
+    private $database_name;
     
-}
-
-function add_code_browser($web_page)
-{
-    echo('<h3>Code Browser</h3>
-          <p>The following are the source code files used to build this page.  Each file has a description along with the source code.</p>');
-
-    $mysqli = NULL;
-    try
+    function __construct()
     {
-        $mysqli = new mysqli('localhost', 'web_site', 'choline', 'code_browser');
-        $page_results = $mysqli->query("CALL get_page_data('$web_page')");
+        $config = parse_ini_file('code_browser.ini');
+
+        $this->host = $config['host'];
+        $this->username = $config['username'];
+        $this->password = $config['password'];
+        $this->database_name = $config['database_name'];
         
-        if($page_results->num_rows == 0)
+    }
+    
+    private function display_code($code_file)
+    {
+        $code_box_id = str_replace('https://raw.githubusercontent.com/wcassidy/', '', $code_file);
+        $code_box_id = str_replace('/', '', $code_box_id);
+        $code_box_id = str_replace('.', '', $code_box_id);
+
+        echo('<a href="#' . $code_box_id . '" class="code_browser_button"  data-toggle="collapse">Show Code</a>');
+        echo('<pre id="' . $code_box_id . '" class="prettyprint collapse code_browser"><xmp>');
+        echo(file_get_contents($code_file));
+        echo('</xmp></pre>');
+    }
+
+    public function display_code_browser($application_name)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Query the database for the page information
+        $application_results = $connection->query("CALL get_application_data('$application_name')");
+
+        if($application_results->num_rows == 0)
         {
-            echo('<h5 class="error">No entry for page: ' . $web_page . '</h5>');
+            echo('<h5 class="error">No entry for application: ' . $application_name . '</h5>');
             return;
         }
-        
-        $record = $page_results->fetch_assoc();
-        echo('<h4>' . basename($record['path']) . '</h4>');
+
+        // Print the application information to the page
+        $record = $application_results->fetch_assoc();
+        echo('<h4>' . $application_name . ' ' . $record['major_version'] .'.' . $record['minor_version'] . '</h4>');
+        echo('<h6>GitHub URL: <a href="' . $record['git_hub_url'] . '">' . basename($record['git_hub_url']) . '</a></h6>');
         echo('<p>' . $record['description'] . '</p>');
-        $page_results->close();   
-        $mysqli->next_result();
-        
-        $code_results = $mysqli->query("CALL get_code_files_for_page('$web_page')");
-        
-        if($code_results->num_rows == 0)
-        {
-            echo('<h5 class="error">No code files for page: ' . $web_page . '</h5>');
-            return;
-        }
+        $application_results->close();                      // Release the memory used by the results
+        $connection->next_result();                         // IMPORTANT: This clears the drivers result buffer
+                                                            // If this isn't done, no other querys can be executed on this connection
+        // Query the database for the code file information
+        $code_results = $connection->query("CALL get_code_files_for_application('$application_name')");
 
-        while($record = $code_results->fetch_assoc()) 
+        // Print the code file information to the page
+        while($record = $code_results->fetch_assoc())
         {
-            echo('<h5>' . basename($record['path']) . '</h5>');
+            echo('<h5>' . basename($record['git_hub_url']) . '</h5>');
             echo('<p>' . $record['description'] . '</p>');
-            display_code($record['path']);
+            $this->display_code($record['git_hub_url']);
         }
-        $code_results->close();   
-        $mysqli->next_result();
-    }
-    catch(Exception $e) 
-    {
-        echo('<h5 class="error">' . $e->getMessage() . '</h4>');  
-    }
-    finally
-    {
-        if($mysqli)
+        $code_results->close();                             // Release the memory used by the results   
+        $connection->next_result();                         // IMPORTANT: This clears the drivers result buffer
+                                                            // If this isn't done, no other querys can be executed on this connection
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
         {
-            $mysqli->close();
+            $connection->close();
+        }
+    }
+    
+    public function add_application($name, $description, $major_version, $minor_version, $git_hub_url)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Call the add_application stored procedure
+        $connection->query("CALL add_application('$name', '$description', '$major_version', '$minor_version', '$git_hub_url')");
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
         }
     }
 }

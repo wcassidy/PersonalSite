@@ -5,112 +5,107 @@ GRANT SELECT, EXECUTE ON code_browser.* TO web_site;
 
 USE code_browser;
 
-CREATE TABLE web_pages
+CREATE TABLE applications
 (
-    id          INT UNSIGNED    NOT NULL AUTO_INCREMENT,
-    path        VARCHAR(255)    NOT NULL,
-    description TEXT            NOT NULL,
-    
+    id              INT UNSIGNED        NOT NULL AUTO_INCREMENT,
+    name            VARCHAR(255)        NOT NULL,
+    description     TEXT                NOT NULL,
+    major_version   SMALLINT UNSIGNED   NOT NULL,
+    minor_version   SMALLINT UNSIGNED   NOT NULL,
+    git_hub_url     VARCHAR(255),
     PRIMARY KEY (id),
-    UNIQUE KEY web_pages_path_unq (path)
+    UNIQUE KEY applications_name_unq (name),
+    UNIQUE KEY applications_git_hub_url_unq (git_hub_url)
 ) 
-COMMENT = 'Stores information about web pages';
+COMMENT = 'Stores information about applications';
 
 CREATE TABLE code_files
 (
     id          INT UNSIGNED    NOT NULL AUTO_INCREMENT,
-    path        VARCHAR(255)    NOT NULL,
+    git_hub_url VARCHAR(255)    NOT NULL,
     description TEXT            NOT NULL,
 
     PRIMARY KEY (id),
-    UNIQUE KEY code_files_path_unq (path)
+    UNIQUE KEY code_files_path_unq (git_hub_url)
 ) 
 COMMENT = 'Stores information about code files';
 
-CREATE TABLE web_pages_code_files
+CREATE TABLE applications_code_files
 (
-    web_page_id     INT UNSIGNED    NOT NULL,
+    application_id  INT UNSIGNED    NOT NULL,
     code_file_id    INT UNSIGNED    NOT NULL,
     
-    PRIMARY KEY (web_page_id, code_file_id),
-    FOREIGN KEY web_pages_fk (web_page_id) REFERENCES web_pages (id),
+    PRIMARY KEY (application_id, code_file_id),
+    FOREIGN KEY applications_fk (application_id) REFERENCES applications (id),
     FOREIGN KEY code_files_fk (code_file_id) REFERENCES code_files (id) 
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) 
-COMMENT = 'Resolution table for many to many relationship between web_pages and code_files';
+COMMENT = 'Resolution table for many to many relationship between applications and code_files';
 
 DELIMITER //
-
-CREATE OR REPLACE PROCEDURE add_page(
-    path VARCHAR(255),
-	description TEXT ) 
+CREATE OR REPLACE PROCEDURE add_application(
+    name            VARCHAR(255),
+    description     TEXT,
+    major_version   SMALLINT UNSIGNED,
+    minor_version   SMALLINT UNSIGNED,
+    git_hub_url     VARCHAR(255)) 
 BEGIN
-	INSERT INTO web_pages (web_pages.path, web_pages.description) VALUES (path, description);
+	INSERT INTO applications (applications.name, applications.description, applications.major_version, applications.minor_version, applications.git_hub_url) 
+    VALUES (name, description, major_version, minor_version, git_hub_url);
 END //
-
 DELIMITER ;
 
 DELIMITER //
-
-CREATE OR REPLACE PROCEDURE add_code_file_to_page(
-    path VARCHAR(255),
-    page_path VARCHAR(255),
-	description TEXT ) 
+CREATE OR REPLACE PROCEDURE add_code_file_to_application(
+    git_hub_url         VARCHAR(255),
+    application_name    VARCHAR(255),
+	description         TEXT) 
 BEGIN
-    DECLARE web_page_id  INT DEFAULT 0;
+    DECLARE application_id  INT DEFAULT 0;
 	DECLARE code_file_id INT DEFAULT 0;
 
     
-    SELECT id INTO web_page_id FROM web_pages WHERE web_pages.path = page_path;
-    IF(web_page_id = 0) THEN
-    	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Web Page does not exist';
+    SELECT id INTO application_id FROM applications WHERE applications.name = application_name;
+    IF(application_id = 0) THEN
+    	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Application does not exist';
     END IF;
     
-    SELECT id INTO code_file_id FROM code_files WHERE code_files.path = path;
+    SELECT id INTO code_file_id FROM code_files WHERE code_files.git_hub_url = git_hub_url;
     IF(code_file_id = 0) THEN
-    	INSERT INTO code_files (code_files.path, code_files.description) VALUES (path, description);
+    	INSERT INTO code_files (code_files.git_hub_url, code_files.description) VALUES (git_hub_url, description);
         SET code_file_id = LAST_INSERT_ID();
     END IF;
     
-    INSERT INTO web_pages_code_files (web_pages_code_files.web_page_id, web_pages_code_files.code_file_id) VALUES (web_page_id, code_file_id);
+    INSERT INTO applications_code_files (applications_code_files.application_id, applications_code_files.code_file_id) VALUES (application_id, code_file_id);
 END //
-
 DELIMITER ;
-
-CALL add_page('/wcassidy/index.php', 'home page');
-CALL add_code_file_to_page('/wcassidy/header.php', '/wcassidy/index.php', 'The header of the web site template');
-CALL add_code_file_to_page('/wcassidy/footer.php', '/wcassidy/index.php', 'The footer of the web site template');
-CALL add_code_file_to_page('/wcassidy/functions.php', '/wcassidy/index.php', 'The php functions used by the web site template');
-CALL add_code_file_to_page('/wcassidy/menu.html', '/wcassidy/index.php', 'A list of menu items for the main menu');
-CALL add_code_file_to_page('/wcassidy/styles.html', '/wcassidy/index.php', 'A list of style (css) links for the web site template');
-CALL add_code_file_to_page('/wcassidy/scripts.html', '/wcassidy/index.php', 'A list of scripts (js) links for the web site template');
-CALL add_code_file_to_page('/wcassidy/style.scss', '/wcassidy/index.php', 'The main stylesheet (css) for web site template');
-CALL add_code_file_to_page('/wcassidy/plugins/lightbox/lightbox.css', '/wcassidy/index.php', 'The stylesheet for the lightbox');
-CALL add_code_file_to_page('/wcassidy/plugins/lightbox/lightbox.js', '/wcassidy/index.php', 'The scripts for the lightbox');
-
 
 DELIMITER //
-
-CREATE OR REPLACE PROCEDURE get_page_data(path VARCHAR(255)) 
+CREATE OR REPLACE PROCEDURE get_application_data(name VARCHAR(255)) 
 BEGIN
-	SELECT path, description FROM web_pages WHERE web_pages.path = path;
+	SELECT name, description, major_version, minor_version, git_hub_url FROM applications WHERE applications.name = name;
 END //
-
 DELIMITER ;
-
-CALL get_page_data('wcassidy/index.php');
 
 DELIMITER //
-
-CREATE OR REPLACE PROCEDURE get_code_files_for_page(path VARCHAR(255)) 
+CREATE OR REPLACE PROCEDURE get_code_files_for_application(name VARCHAR(255)) 
 BEGIN
-	SELECT code_files.path, code_files.description FROM code_files
-    INNER JOIN web_pages_code_files ON code_files.id = web_pages_code_files.code_file_id
-    INNER JOIN web_pages ON web_pages_code_files.web_page_id = web_pages.id 
-    WHERE web_pages.path = path;
+	SELECT code_files.git_hub_url, code_files.description FROM code_files
+    INNER JOIN applications_code_files ON code_files.id = applications_code_files.code_file_id
+    INNER JOIN applications ON applications_code_files.application_id = applications.id 
+    WHERE applications.name = name;
 END //
-
 DELIMITER ;
 
-CALL get_code_files_for_page('wcassidy/index.php');
+CALL add_application('Personal Web Site-LAMP', 'This is the LAMP version of my personal web site', 1, 0, 'https://github.com/wcassidy/PersonalSite');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/header.php', 'Personal Web Site-LAMP', 'The header of the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/footer.php', 'Personal Web Site-LAMP', 'The footer of the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/functions.php', 'Personal Web Site-LAMP', 'The php functions used by the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/menu.html', 'Personal Web Site-LAMP', 'A list of menu items for the main menu');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/styles.html', 'Personal Web Site-LAMP', 'A list of style (css) links for the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/scripts.html', 'Personal Web Site-LAMP', 'A list of scripts (js) links for the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/style.scss', 'Personal Web Site-LAMP', 'The main stylesheet (css) for web site template');
+
+CALL get_application_data('Personal Web Site-LAMP');
+CALL get_code_files_for_application('Personal Web Site-LAMP');
