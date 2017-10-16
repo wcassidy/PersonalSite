@@ -65,6 +65,31 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE OR REPLACE PROCEDURE update_application(
+    old_name        VARCHAR(255),
+    name            VARCHAR(255),
+    description     TEXT,
+    major_version   SMALLINT UNSIGNED,
+    minor_version   SMALLINT UNSIGNED,
+    git_hub_url     VARCHAR(255)) 
+BEGIN
+	UPDATE applications SET applications.name = name, 
+                            applications.description = description, 
+                            applications.major_version = major_version, 
+                            applications.minor_version = minor_version, 
+                            applications.git_hub_url = git_hub_url
+    WHERE applications.name = old_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE delete_application(name VARCHAR(255)) 
+BEGIN
+	DELETE FROM applications WHERE applications.name = name;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE OR REPLACE PROCEDURE add_code_file_to_application(
     git_hub_url         VARCHAR(255),
     application_name    VARCHAR(255),
@@ -118,3 +143,7 @@ CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/Pe
 CALL get_applications();
 CALL get_application_data('Personal Web Site-LAMP');
 CALL get_code_files_for_application('Personal Web Site-LAMP');
+
+CALL update_application('Personal Web Site-LAMP', 'Personal Web Site', 'This is the LAMP version of my personal web site', 1, 0, 'https://github.com/wcassidy/PersonalSite');
+CALL add_application('Personal Web Site-LAMPII', 'This is the LAMP version of my personal web site', 1, 0, 'https://github.com/wcassidy/PersonalSiteII');
+CALL delete_application('Personal Web Site-LAMPII');

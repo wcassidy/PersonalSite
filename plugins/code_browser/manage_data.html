@@ -34,6 +34,7 @@
                 <div class="col-2">
                     <div><a href="#list_applications" data-toggle="collapse">Application List</a></div>
                     <div><a href="#application_form" data-toggle="collapse">Application Editor</a></div>
+                    <div><a href="#list_code_files" data-toggle="collapse">Code File List</a></div>
                     <div><a href="#">Code File Editor</a></div>
                     <div><a href="#">Remove Orphaned Code Files</a></div>
                 </div>
@@ -55,6 +56,23 @@
                         <i class="fa fa-plus-circle list_icons" aria-hidden="true"><a id="add_app_button" class="list_links" href="#" data-toggle="collapse">Add Application</a></i>
                         <i class="fa fa-pencil list_icons" aria-hidden="true"><a id="edit_app_button" class="list_links" href="#" data-toggle="collapse">Edit Application</a></i>
                         <i class="fa fa-minus-circle list_icons" aria-hidden="true"><a id="delete_app_button" class="list_links" href="#" data-toggle="collapse">Delete Application</a></i>
+                        <i class="fa fa-link list_icons" aria-hidden="true"><a id="link_button" class="list_links" href="#" data-toggle="collapse">Link Code Files to Application</a></i>
+                    </div>
+                    <div id="list_code_files" class="collapse show">
+                        <h3>Code File List</h3>
+                        <table class="table table-sm table-responsive broswer_table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>GitHub URL</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="code_file_table"></tbody>
+                        </table>
+                        <i class="fa fa-plus-circle list_icons" aria-hidden="true"><a id="add_code_file_button" class="list_links" href="#" data-toggle="collapse">Add Code File</a></i>
+                        <i class="fa fa-pencil list_icons" aria-hidden="true"><a id="edit_code_file_button" class="list_links" href="#" data-toggle="collapse">Edit Code File</a></i>
+                        <i class="fa fa-minus-circle list_icons" aria-hidden="true"><a id="delete_code_file_button" class="list_links" href="#" data-toggle="collapse">Delete Code File</a></i>
                     </div>
                     <form id="application_form" action="manage_data.php" method="post" class="collapse">
                         <div class="row add_application_row">
@@ -83,7 +101,7 @@
                                 <button type="submit" class="btn">Submit</button>
                                 <button type="reset" class="btn">Reset</button>
                                 <input id="action" name="action" type="hidden">
-                                <input id="old_name" type="hidden">
+                                <input id="old_name" name="old_name" type="hidden">
                             </div>
                         </div>
                         <div class="row add_application_row">

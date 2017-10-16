@@ -132,6 +132,40 @@ class code_browser
             $connection->close();
         }
     }
+
+    public function update_application($old_name, $name, $description, $major_version, $minor_version, $git_hub_url)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Call the update_application stored procedure
+        $connection->query("CALL update_application('$old_name', '$name', '$description', '$major_version', '$minor_version', '$git_hub_url')");
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+    }
+
+    public function delete_application($name)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Call the update_application stored procedure
+        $connection->query("CALL delete_application('$name')");
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+    }
 }
 
 ?>
