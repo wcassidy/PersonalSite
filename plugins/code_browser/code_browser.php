@@ -3,22 +3,13 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);  // This enables prop
 
 class code_browser
 {
+    // Data memebers
     private $host;
     private $username;
     private $password;
     private $database_name;
     
-    function __construct()
-    {
-        $config = parse_ini_file('code_browser.ini');
-
-        $this->host = $config['host'];
-        $this->username = $config['username'];
-        $this->password = $config['password'];
-        $this->database_name = $config['database_name'];
-        
-    }
-    
+    // Helper Functions
     private function display_code($code_file)
     {
         $code_box_id = str_replace('https://raw.githubusercontent.com/wcassidy/', '', $code_file);
@@ -31,6 +22,55 @@ class code_browser
         echo('</xmp></pre>');
     }
 
+    // Construction / Destruction
+    public function __construct()
+    {
+        $config = parse_ini_file('code_browser.ini');
+
+        $this->host = $config['host'];
+        $this->username = $config['username'];
+        $this->password = $config['password'];
+        $this->database_name = $config['database_name'];
+        
+    }
+    
+    // Interface Functions
+    public function get_applications()
+    {
+        $mysqli = NULL;
+        $applications = array();
+        
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Query the database for the applications
+        $application_results = $connection->query("CALL get_applications()");
+
+        // Add the applications to the array
+        $index = 0;
+        while($record = $application_results->fetch_assoc())
+        {
+            $applications[$index] = array(
+                $record['name'],
+                $record['major_version'],
+                $record['minor_version'],
+                $record['git_hub_url'],
+                $record['description']
+            );
+            $index++;
+        }
+        $application_results->close();                             // Release the memory used by the results   
+        $connection->next_result();                         // IMPORTANT: This clears the drivers result buffer
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+        
+        return $applications;
+    }
+    
     public function display_code_browser($application_name)
     {
          $mysqli = NULL;

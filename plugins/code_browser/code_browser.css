@@ -3,6 +3,22 @@
   color: red; }
 
 /* line 14, code_browser.scss */
+a,
+a:visited {
+  text-decoration: none;
+  color: #116466; }
+
+/* line 21, code_browser.scss */
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #D9B08C; }
+
+/* line 28, code_browser.scss */
+h3, h4, h5 {
+  color: #116466; }
+
+/* line 33, code_browser.scss */
 pre.prettyprint.code_browser {
   width: 100%;
   max-height: 24rem;
@@ -10,21 +26,43 @@ pre.prettyprint.code_browser {
   padding-left: 3px;
   padding-right: 3px; }
 
-/* line 23, code_browser.scss */
+/* line 42, code_browser.scss */
+.broswer_table {
+  box-shadow: -3px 0 15px 0 rgba(100, 100, 100, 0.75); }
+  /* line 46, code_browser.scss */
+  .broswer_table th {
+    color: #116466; }
+  /* line 51, code_browser.scss */
+  .broswer_table td {
+    font-size: .75em; }
+
+/* line 57, code_browser.scss */
+.list_links {
+  padding: 10px; }
+
+/* line 62, code_browser.scss */
+.list_icons {
+  color: #116466; }
+
+/* line 67, code_browser.scss */
+.active_row {
+  color: #D9B08C; }
+
+/* line 72, code_browser.scss */
 .code_browser_button {
   display: inline-block;
   margin-bottom: 1rem;
   font-size: .8em; }
 
-/* line 30, code_browser.scss */
+/* line 79, code_browser.scss */
 .add_application_row {
   margin: 1rem; }
 
-/* line 35, code_browser.scss */
+/* line 84, code_browser.scss */
 body {
   padding-top: 130px; }
 
-/* line 40, code_browser.scss */
+/* line 89, code_browser.scss */
 .title_code_image {
   position: fixed;
   top: 0;
@@ -35,20 +73,20 @@ body {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px; }
 
-/* line 52, code_browser.scss */
+/* line 101, code_browser.scss */
 .title_bar {
   background-color: rgba(44, 53, 49, 0.85);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   height: 120px; }
-  /* line 59, code_browser.scss */
+  /* line 108, code_browser.scss */
   .title_bar .title_text {
     color: #D9B08C; }
-  /* line 64, code_browser.scss */
+  /* line 113, code_browser.scss */
   .title_bar h1 {
     font-size: 2.0rem; }
 
-/* line 70, code_browser.scss */
+/* line 119, code_browser.scss */
 .title_image {
   max-width: 70px;
   width: 100%;
@@ -57,26 +95,44 @@ body {
   margin-right: 15px;
   margin-left: 10%; }
 
+/* line 129, code_browser.scss */
+.app_name {
+  width: 10em; }
+
+/* line 134, code_browser.scss */
+.app_description {
+  width: 10em; }
+
+/* line 139, code_browser.scss */
+.version {
+  width: 4em;
+  margin-left: 5px; }
+
+/* line 145, code_browser.scss */
+.result_log {
+  font-size: .75em;
+  margin-bottom: 10px; }
+
 /* bootstrap overrides */
-/* line 81, code_browser.scss */
+/* line 152, code_browser.scss */
 .toggler_override.navbar-toggler {
   border-color: #d9b08c; }
 
-/* line 86, code_browser.scss */
+/* line 157, code_browser.scss */
 .toggler_override .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(217,176,140, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); }
 
-/* line 91, code_browser.scss */
+/* line 162, code_browser.scss */
 .navbar-dark .navbar-nav a.nav-link:link,
 .navbar-dark .navbar-nav a.nav-link:visited {
   color: #D9B08C; }
 
-/* line 97, code_browser.scss */
+/* line 168, code_browser.scss */
 .navbar-dark .navbar-nav a.nav-link:hover,
 .navbar-dark .navbar-nav a.nav-link:active {
   color: #FFCB9A; }
 
-/* line 103, code_browser.scss */
+/* line 174, code_browser.scss */
 .navbar-dark .navbar-brand:hover,
 .navbar-dark .navbar-brand:focus {
   background-color: transparent;

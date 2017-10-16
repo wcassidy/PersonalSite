@@ -16,13 +16,13 @@ h3, h4, h5 {
 a,
 a:visited {
   text-decoration: none;
-  color: #D9B08C; }
+  color: #116466; }
 
 /* line 34, style.scss */
 a:hover,
 a:active {
   text-decoration: none;
-  color: #FFCB9A; }
+  color: #D9B08C; }
 
 /* line 41, style.scss */
 ul.main_content {

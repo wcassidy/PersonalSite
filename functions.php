@@ -48,6 +48,6 @@ function add_scripts()
 }
 
 // Add plugins here
-require 'plugins/code_browser/code_browser.php';
+require 'plugins/code_browser/manage_data.php';
 
 ?>

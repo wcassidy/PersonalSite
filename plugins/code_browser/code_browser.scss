@@ -11,6 +11,25 @@ $code-wide: url(code_wide.png);
     color: red;
 }
 
+a,
+a:visited
+{
+    text-decoration: none;
+    color: $blue-sapphire;
+}
+
+a:hover,
+a:active
+{
+    text-decoration: none;
+    color: $tan;
+}
+
+h3, h4, h5
+{
+    color: $blue-sapphire;
+}
+
 pre.prettyprint.code_browser
 {
     width: 100%;
@@ -18,6 +37,36 @@ pre.prettyprint.code_browser
     background-color: $code_background;
     padding-left: 3px;
     padding-right: 3px;
+}
+
+.broswer_table
+{
+	box-shadow: -3px 0 15px 0 rgba(100,100,100,.75);
+
+    th
+    {
+        color: $blue-sapphire;
+    }
+    
+    td
+    {
+        font-size: .75em;
+    }
+}
+
+.list_links
+{
+    padding: 10px;
+}
+
+.list_icons
+{
+    color: $blue-sapphire;
+}
+
+.active_row
+{
+    color: $tan;
 }
 
 .code_browser_button
@@ -75,6 +124,28 @@ body
     border-radius: 5px;
     margin-right: 15px;
     margin-left: 10%;
+}
+
+.app_name
+{
+    width: 10em;
+}
+
+.app_description
+{
+    width: 10em;
+}
+
+.version
+{
+    width: 4em;
+    margin-left: 5px;
+}
+
+.result_log
+{
+    font-size: .75em;
+    margin-bottom: 10px;
 }
 
 /* bootstrap overrides */

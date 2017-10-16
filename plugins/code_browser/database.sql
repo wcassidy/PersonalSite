@@ -44,6 +44,14 @@ CREATE TABLE applications_code_files
 COMMENT = 'Resolution table for many to many relationship between applications and code_files';
 
 DELIMITER //
+CREATE OR REPLACE PROCEDURE get_applications() 
+BEGIN
+	SELECT applications.name, applications.description, applications.major_version, applications.minor_version, applications.git_hub_url
+    FROM applications;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE OR REPLACE PROCEDURE add_application(
     name            VARCHAR(255),
     description     TEXT,
@@ -107,5 +115,6 @@ CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/Pe
 CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/scripts.html', 'Personal Web Site-LAMP', 'A list of scripts (js) links for the web site template');
 CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/style.scss', 'Personal Web Site-LAMP', 'The main stylesheet (css) for web site template');
 
+CALL get_applications();
 CALL get_application_data('Personal Web Site-LAMP');
 CALL get_code_files_for_application('Personal Web Site-LAMP');
