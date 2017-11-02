@@ -35,42 +35,6 @@ class code_browser
     }
     
     // Interface Functions
-    public function get_applications()
-    {
-        $mysqli = NULL;
-        $applications = array();
-        
-        // Make a connection to the database
-        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
-
-        // Query the database for the applications
-        $application_results = $connection->query("CALL get_applications()");
-
-        // Add the applications to the array
-        $index = 0;
-        while($record = $application_results->fetch_assoc())
-        {
-            $applications[$index] = array(
-                $record['name'],
-                $record['major_version'],
-                $record['minor_version'],
-                $record['git_hub_url'],
-                $record['description']
-            );
-            $index++;
-        }
-        $application_results->close();                             // Release the memory used by the results   
-        $connection->next_result();                         // IMPORTANT: This clears the drivers result buffer
-
-        // Always close the connection when you're done with it
-        if(isset($connection))
-        {
-            $connection->close();
-        }
-        
-        return $applications;
-    }
-    
     public function display_code_browser($application_name)
     {
          $mysqli = NULL;
@@ -114,6 +78,42 @@ class code_browser
         {
             $connection->close();
         }
+    }
+    
+    public function get_applications()
+    {
+        $mysqli = NULL;
+        $applications = array();
+        
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Query the database for the applications
+        $application_results = $connection->query("CALL get_applications()");
+
+        // Add the applications to the array
+        $index = 0;
+        while($record = $application_results->fetch_assoc())
+        {
+            $applications[$index] = array(
+                $record['name'],
+                $record['major_version'],
+                $record['minor_version'],
+                $record['git_hub_url'],
+                $record['description']
+            );
+            $index++;
+        }
+        $application_results->close();                             // Release the memory used by the results   
+        $connection->next_result();                         // IMPORTANT: This clears the drivers result buffer
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+        
+        return $applications;
     }
     
     public function add_application($name, $description, $major_version, $minor_version, $git_hub_url)

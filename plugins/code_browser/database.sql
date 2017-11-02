@@ -1,7 +1,7 @@
 CREATE OR REPLACE DATABASE code_browser;
 
 CREATE OR REPLACE USER web_site IDENTIFIED BY 'choline';
-GRANT SELECT, EXECUTE ON code_browser.* TO web_site;
+GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON code_browser.* TO web_site;
 
 USE code_browser;
 
@@ -46,7 +46,7 @@ COMMENT = 'Resolution table for many to many relationship between applications a
 DELIMITER //
 CREATE OR REPLACE PROCEDURE get_applications() 
 BEGIN
-	SELECT applications.name, applications.description, applications.major_version, applications.minor_version, applications.git_hub_url
+	SELECT applications.id, applications.name, applications.description, applications.major_version, applications.minor_version, applications.git_hub_url
     FROM applications;
 END //
 DELIMITER ;
@@ -57,7 +57,7 @@ CREATE OR REPLACE PROCEDURE add_application(
     description     TEXT,
     major_version   SMALLINT UNSIGNED,
     minor_version   SMALLINT UNSIGNED,
-    git_hub_url     VARCHAR(255)) 
+    git_hub_url     VARCHAR(255))
 BEGIN
 	INSERT INTO applications (applications.name, applications.description, applications.major_version, applications.minor_version, applications.git_hub_url) 
     VALUES (name, description, major_version, minor_version, git_hub_url);
@@ -118,6 +118,13 @@ DELIMITER //
 CREATE OR REPLACE PROCEDURE get_application_data(name VARCHAR(255)) 
 BEGIN
 	SELECT name, description, major_version, minor_version, git_hub_url FROM applications WHERE applications.name = name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE get_code_files() 
+BEGIN
+	SELECT code_files.id, code_files.git_hub_url, code_files.description FROM code_files;
 END //
 DELIMITER ;
 
