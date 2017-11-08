@@ -19,7 +19,13 @@ body
     padding-top: 70px;
 }
 
-h3, h4, h5
+h6
+{
+    font-wieght: bold;
+    font-size: 1.1rem;
+}
+
+h2, h3, h4, h5, h6
 {
     color: $blue-sapphire;
 }
@@ -70,6 +76,7 @@ ul.main_content
 
 .title_bar 
 {
+    height: 65px;
     background-color: rgba(44, 53, 49, 0.85);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -92,6 +99,11 @@ ul.main_content
 .paragraph_row
 {
     margin-top: 10px;
+
+    p.indent
+    {
+        text-indent: 1em;
+    }
 }
 
 .paragraph_image
@@ -120,7 +132,7 @@ ul.main_content
     color: $tan;
     padding-top: 10px;
     
-    h4, h5
+    h4, h5, h6
     {
         color: $tan;
     }
@@ -181,6 +193,12 @@ ul.main_content
         max-width: 70px;
         margin-left: 10%;
     }
+}
+
+a[data-toggle="collapse"] > i
+{
+    font-size: 0.7em;
+    vertical-align: middle;
 }
 
 /* bootstrap overrides */

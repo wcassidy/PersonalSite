@@ -1,6 +1,8 @@
 <?php
 
 $page_title = 'unset';
+$styles = array();
+$scripts = array();
 
 function set_title($title)
 {
@@ -12,6 +14,43 @@ function get_title()
 {
     global $page_title;
     return $page_title;
+}
+
+function add_style($name, $url)
+{
+    global $styles;
+    
+    if(!isset($styles[$name]))
+    {
+        $styles[$name] = $url;
+    }
+    else
+    {
+        echo('<h4 class="error">Style ' . $name . '@' . $url . ' has already been added.  To overwrite please remove_style first.</h4>');
+    }
+}
+
+function add_script($name, $url)
+{
+    global $scripts;
+    
+    if(!isset($scripts[$name]))
+    {
+        $scripts[$name] = $url;
+    }
+    else
+    {
+        echo('<h4 class="error">Script ' . $name . '@' . $url . ' has already been added.  To overwrite please remove_script first.</h4>');
+    }
+}
+
+function debug_links()
+{
+    global $styles;
+    global $scripts;
+
+    var_dump($styles);
+    var_dump($scripts);
 }
 
 function add_menu()
@@ -37,17 +76,25 @@ function add_links($file_name)
     }
 }
 
-function add_styles()
+function add_styles_to_page()
 {
-    add_links('styles.html');
+    global $styles;
+    foreach($styles as $name => $url)
+    {
+        echo('<link rel="stylesheet" type="text/css" href="' . $url . '">');
+    }
 }
 
-function add_scripts()
+function add_scripts_to_page()
 {
-    add_links('scripts.html');
+    global $scripts;
+    foreach($scripts as $name => $url)
+    {
+        echo('<script src="' . $url . '"></script>');
+    }
 }
 
 // Add plugins here
-require 'plugins/code_browser/manage_data.php';
+// require 'plugins/code_browser/code_browser.php';
 
 ?>

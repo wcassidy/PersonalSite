@@ -9,35 +9,40 @@ body {
   padding-top: 70px; }
 
 /* line 22, style.scss */
-h3, h4, h5 {
+h6 {
+  font-wieght: bold;
+  font-size: 1.1rem; }
+
+/* line 28, style.scss */
+h2, h3, h4, h5, h6 {
   color: #116466; }
 
-/* line 27, style.scss */
+/* line 33, style.scss */
 a,
 a:visited {
   text-decoration: none;
   color: #116466; }
 
-/* line 34, style.scss */
+/* line 40, style.scss */
 a:hover,
 a:active {
   text-decoration: none;
   color: #D9B08C; }
 
-/* line 41, style.scss */
+/* line 47, style.scss */
 ul.main_content {
   list-style-type: none; }
-  /* line 45, style.scss */
+  /* line 51, style.scss */
   ul.main_content li {
     margin-bottom: 7px; }
-  /* line 50, style.scss */
+  /* line 56, style.scss */
   ul.main_content li:before {
     font-family: 'FontAwesome';
     content: '\F00C';
     margin: 0 10px 0 -15px;
     color: #116466; }
 
-/* line 59, style.scss */
+/* line 65, style.scss */
 .title_code_image {
   position: fixed;
   top: 0;
@@ -48,16 +53,17 @@ ul.main_content {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px; }
 
-/* line 71, style.scss */
+/* line 77, style.scss */
 .title_bar {
+  height: 65px;
   background-color: rgba(44, 53, 49, 0.85);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px; }
-  /* line 77, style.scss */
+  /* line 84, style.scss */
   .title_bar .title_text {
     color: #D9B08C; }
 
-/* line 83, style.scss */
+/* line 90, style.scss */
 .title_image {
   max-width: 50px;
   width: 100%;
@@ -65,18 +71,21 @@ ul.main_content {
   border-radius: 5px;
   margin-right: 15px; }
 
-/* line 92, style.scss */
+/* line 99, style.scss */
 .paragraph_row {
   margin-top: 10px; }
+  /* line 103, style.scss */
+  .paragraph_row p.indent {
+    text-indent: 1em; }
 
-/* line 97, style.scss */
+/* line 109, style.scss */
 .paragraph_image {
   height: auto;
   max-width: 80px;
   width: 100%;
   border-radius: 10px; }
 
-/* line 105, style.scss */
+/* line 117, style.scss */
 .end_image {
   background-image: url(images/code_wide.png);
   width: 100%;
@@ -86,76 +95,81 @@ ul.main_content {
   opacity: 0.9;
   border-radius: 5px; }
 
-/* line 116, style.scss */
+/* line 128, style.scss */
 .footer_bar {
   background-color: #2C3531;
   opacity: 0.85;
   color: #D9B08C;
   padding-top: 10px; }
-  /* line 123, style.scss */
-  .footer_bar h4, .footer_bar h5 {
+  /* line 135, style.scss */
+  .footer_bar h4, .footer_bar h5, .footer_bar h6 {
     color: #D9B08C; }
-  /* line 128, style.scss */
+  /* line 140, style.scss */
   .footer_bar h5.header {
     border-bottom: 1px solid rgba(217, 176, 140, 0.5);
     padding-bottom: 2px; }
-  /* line 134, style.scss */
+  /* line 146, style.scss */
   .footer_bar ul {
     padding: 0;
     list-style-type: none; }
-    /* line 139, style.scss */
+    /* line 151, style.scss */
     .footer_bar ul li a,
     .footer_bar ul li a:visited {
       text-decoration: none;
       color: #D9B08C;
       opacity: 0.7; }
-    /* line 147, style.scss */
+    /* line 159, style.scss */
     .footer_bar ul li a:hover,
     .footer_bar ul li a:active {
       color: #D9B08C;
       opacity: 1.0; }
 
 @media (min-width: 992px) {
-  /* line 158, style.scss */
+  /* line 170, style.scss */
   body {
     padding-top: 130px; }
 
-  /* line 163, style.scss */
+  /* line 175, style.scss */
   .title_code_image {
     height: 120px; }
 
-  /* line 168, style.scss */
+  /* line 180, style.scss */
   .title_bar {
     height: 120px; }
-    /* line 172, style.scss */
+    /* line 184, style.scss */
     .title_bar h1 {
       font-size: 2.0rem; }
 
-  /* line 178, style.scss */
+  /* line 190, style.scss */
   .title_image {
     opacity: 1.0 !important;
     max-width: 70px;
     margin-left: 10%; } }
+/* line 198, style.scss */
+a[data-toggle="collapse"] > i {
+  font-size: 0.7em;
+  vertical-align: middle; }
+
 /* bootstrap overrides */
-/* line 187, style.scss */
+/* line 205, style.scss */
 .toggler_override.navbar-toggler {
   border-color: #d9b08c; }
 
-/* line 192, style.scss */
+/* line 210, style.scss */
 .toggler_override .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(217,176,140, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); }
 
-/* line 197, style.scss */
+/* line 215, style.scss */
 .navbar-dark .navbar-nav a.nav-link:link,
 .navbar-dark .navbar-nav a.nav-link:visited {
   color: #D9B08C; }
 
-/* line 203, style.scss */
+/* line 221, style.scss */
 .navbar-dark .navbar-nav a.nav-link:hover,
 .navbar-dark .navbar-nav a.nav-link:active {
   color: #FFCB9A; }
 
-/* line 209, style.scss */
+/* line 227, style.scss */
 .navbar-dark .navbar-brand:hover,
 .navbar-dark .navbar-brand:focus {
   background-color: transparent;

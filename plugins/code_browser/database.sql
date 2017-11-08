@@ -138,19 +138,15 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL add_application('Personal Web Site-LAMP', 'This is the LAMP version of my personal web site', 1, 0, 'https://github.com/wcassidy/PersonalSite');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/header.php', 'Personal Web Site-LAMP', 'The header of the web site template');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/footer.php', 'Personal Web Site-LAMP', 'The footer of the web site template');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/functions.php', 'Personal Web Site-LAMP', 'The php functions used by the web site template');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/menu.html', 'Personal Web Site-LAMP', 'A list of menu items for the main menu');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/styles.html', 'Personal Web Site-LAMP', 'A list of style (css) links for the web site template');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/scripts.html', 'Personal Web Site-LAMP', 'A list of scripts (js) links for the web site template');
-CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/style.scss', 'Personal Web Site-LAMP', 'The main stylesheet (css) for web site template');
+CALL add_application('Code Browser', 'This is a php plugin which allows me to display code examples on a web page', 1, 0, 'https://github.com/wcassidy/PersonalSite');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/header.php', 'Code Browser', 'The header of the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/footer.php', 'Code Browser', 'The footer of the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/functions.php', 'Code Browser', 'The php functions used by the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/menu.html', 'Code Browser', 'A list of menu items for the main menu');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/styles.html', 'Code Browser', 'A list of style (css) links for the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/scripts.html', 'Code Browser', 'A list of scripts (js) links for the web site template');
+CALL add_code_file_to_application('https://raw.githubusercontent.com/wcassidy/PersonalSite/master/style.scss', 'Code Browser', 'The main stylesheet (css) for web site template');
 
 CALL get_applications();
-CALL get_application_data('Personal Web Site-LAMP');
-CALL get_code_files_for_application('Personal Web Site-LAMP');
-
-CALL update_application('Personal Web Site-LAMP', 'Personal Web Site', 'This is the LAMP version of my personal web site', 1, 0, 'https://github.com/wcassidy/PersonalSite');
-CALL add_application('Personal Web Site-LAMPII', 'This is the LAMP version of my personal web site', 1, 0, 'https://github.com/wcassidy/PersonalSiteII');
-CALL delete_application('Personal Web Site-LAMPII');
+CALL get_application_data('Code Browser');
+CALL get_code_files_for_application('Code Browser');
