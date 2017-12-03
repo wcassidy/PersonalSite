@@ -175,4 +175,13 @@ a[data-toggle="collapse"] > i {
   background-color: transparent;
   color: #D9B08C; }
 
+/* line 234, style.scss */
+.btn-primary {
+  background-color: #116466;
+  border-color: #116466; }
+
+/* line 240, style.scss */
+.btn-primary:hover {
+  background-color: #2C3531; }
+
 /*# sourceMappingURL=style.css.map */

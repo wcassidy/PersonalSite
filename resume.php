@@ -11,6 +11,7 @@ add_script('resume', 'resume.js');
 <div class="container-fluid">
     <div class="row paragraph_row">
         <div class="d-none d-lg-block col-lg-2 text-right">
+            <image class="paragraph_image float-right lightbox_image" src="images/resume.png"></image>
         </div>
         <div class="col-12 col-lg-8">
             <h2>Personal Resume</h2><hr>
@@ -20,6 +21,7 @@ add_script('resume', 'resume.js');
     <!-- Section - Introduction -->
     <div class="row paragraph_row">
         <div class="d-none d-lg-block col-lg-2 text-right">
+            <a href="WayneCassidy-Resume.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download pdf version</a>
         </div>
         <div class="col-12 col-lg-8">
             <h3><a data-toggle="collapse" href="#introduction_section" aria-expanded="false" aria-controls="introduction_section"><i class="fa fa-minus-square-o" aria-hidden="true"></i></a> Introduction</h3>
@@ -986,6 +988,9 @@ add_script('resume', 'resume.js');
                 <div class="d-none d-lg-block col-lg-2"></div>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8 end_image"></div>
     </div>
 </div>
 

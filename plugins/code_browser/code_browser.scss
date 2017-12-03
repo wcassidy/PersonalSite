@@ -52,6 +52,12 @@ pre.prettyprint.code_browser
     {
         font-size: .75em;
     }
+
+    .active_row
+    {
+        background-color: $tan;
+        color: $blue-sapphire;
+    }
 }
 
 .list_links
@@ -64,11 +70,6 @@ pre.prettyprint.code_browser
     color: $blue-sapphire;
 }
 
-.active_row
-{
-    color: $tan;
-}
-
 .code_browser_button
 {
     display: inline-block;
@@ -76,7 +77,7 @@ pre.prettyprint.code_browser
     font-size: .8em;
 }
 
-.add_application_row
+.add_application_row, .add_code_file_row
 {
     margin: 1rem;
 }

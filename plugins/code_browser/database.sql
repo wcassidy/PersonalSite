@@ -1,9 +1,4 @@
-CREATE OR REPLACE DATABASE code_browser;
-
-CREATE OR REPLACE USER web_site IDENTIFIED BY 'choline';
-GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON code_browser.* TO web_site;
-
-USE code_browser;
+USE waynecas_code_browser;
 
 CREATE TABLE applications
 (
@@ -90,6 +85,15 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE OR REPLACE PROCEDURE add_code_file(
+    git_hub_url         VARCHAR(255),
+	description         TEXT) 
+BEGIN
+    INSERT INTO code_files (code_files.git_hub_url, code_files.description) VALUES (git_hub_url, description);
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE OR REPLACE PROCEDURE add_code_file_to_application(
     git_hub_url         VARCHAR(255),
     application_name    VARCHAR(255),
@@ -111,6 +115,25 @@ BEGIN
     END IF;
     
     INSERT INTO applications_code_files (applications_code_files.application_id, applications_code_files.code_file_id) VALUES (application_id, code_file_id);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE update_code_file(
+    old_url         VARCHAR(255),
+    new_url         VARCHAR(255),
+    description     TEXT) 
+BEGIN
+	UPDATE code_files SET code_files.git_hub_url = new_url, 
+                          code_files.description = description
+    WHERE code_files.git_hub_url = old_url;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE delete_code_file(git_hub_url VARCHAR(255)) 
+BEGIN
+	DELETE FROM code_files WHERE code_files.git_hub_url = git_hub_url;
 END //
 DELIMITER ;
 

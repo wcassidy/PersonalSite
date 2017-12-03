@@ -230,3 +230,15 @@ a[data-toggle="collapse"] > i
     background-color: transparent;
     color: $tan;
 }
+
+.btn-primary
+{
+    background-color: $blue-sapphire;
+    border-color:  $blue-sapphire;
+}
+
+.btn-primary:hover
+{
+    background-color: $gunmetal-grey;
+}
+

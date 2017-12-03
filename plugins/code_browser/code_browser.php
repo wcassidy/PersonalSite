@@ -166,6 +166,105 @@ class code_browser
             $connection->close();
         }
     }
+    
+    public function get_code_files()
+    {
+        $mysqli = NULL;
+        $code_files = array();
+        
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Query the database for the code files
+        $code_file_results = $connection->query("CALL get_code_files()");
+
+        // Add the code files to the array
+        $index = 0;
+        while($record = $code_file_results->fetch_assoc())
+        {
+            $code_files[$index] = array(
+                $record['git_hub_url'],
+                $record['description']
+            );
+            $index++;
+        }
+        $code_file_results->close();                         // Release the memory used by the results   
+        $connection->next_result();                         // IMPORTANT: This clears the drivers result buffer
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+        
+        return $code_files;
+    }
+    
+    public function add_code_file($git_hub_url, $description)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Call the add_application stored procedure
+        $connection->query("CALL add_code_file('$git_hub_url', '$description')");
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+    }
+
+    public function update_code_file($old_url, $new_url, $description)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+
+        // Call the update_application stored procedure
+        $connection->query("CALL update_code_file('$old_url', '$new_url', '$description')");
+
+        // Always close the connection when you're done with it
+        if(isset($connection))
+        {
+            $connection->close();
+        }
+    }
+
+    public function delete_code_files($code_files)
+    {
+         $mysqli = NULL;
+
+        // Make a connection to the database
+        $connection = new mysqli($this->host, $this->username, $this->password, $this->database_name);
+        
+        try
+        {
+            $connection->begin_transaction();
+            
+            foreach($code_files as $code_file)
+            {
+                $connection->query("CALL delete_code_file('$code_file')");
+            }
+            $connection->commit();
+        }
+        catch(Exception $exception)
+        {
+            $connection->rollback();
+            throw $exception;
+        }
+        finally
+        {
+            // Always close the connection when you're done with it
+            if(isset($connection))
+            {
+                $connection->close();
+            }
+        }        
+    }
 }
 
 ?>
